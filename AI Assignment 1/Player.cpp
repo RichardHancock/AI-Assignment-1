@@ -66,7 +66,7 @@ void Player::eventKeyboard(SDL_Event& e)
 
 void Player::update(float dt)
 {
-	velocity.x = 0;
+	velocity = 0;
 
 	if (movingLeft &!movingRight)
 	{

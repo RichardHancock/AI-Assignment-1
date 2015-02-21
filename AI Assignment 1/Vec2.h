@@ -85,6 +85,12 @@ public:
 		y /= b.y;
 		return this;
 	}
+	Vec2* operator = (int b)
+	{
+		x = b;
+		y = b;
+		return this;
+	}
 
 	inline Vec2 operator + (Vec2 b)
 	{
@@ -128,6 +134,8 @@ public:
 		result.y = y * b;
 		return result;
 	}
+
+	
 
 };
 

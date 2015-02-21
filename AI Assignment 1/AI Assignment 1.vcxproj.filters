@@ -51,9 +51,6 @@
     <ClCompile Include="levelManagement\Tile.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
-    <ClCompile Include="states\GameOverState.cpp">
-      <Filter>Source Files\States</Filter>
-    </ClCompile>
     <ClCompile Include="states\PlayState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
@@ -68,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="Bot.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="states\HelpState.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,9 +85,6 @@
     </ClInclude>
     <ClInclude Include="Vec2.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="states\GameOverState.h">
-      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="states\PlayState.h">
       <Filter>Header Files\States</Filter>
@@ -112,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Bot.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="states\HelpState.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

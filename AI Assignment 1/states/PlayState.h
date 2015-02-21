@@ -7,6 +7,7 @@
 #include "../Texture.h"
 #include "../levelManagement/LevelManager.h"
 #include "../Player.h"
+#include "../Bot.h"
 
 #pragma once
 
@@ -21,9 +22,8 @@ public:
 	@brief Create the State
 	@param StateManager* - Pointer to the current state manager
 	@param SDL_Renderer* - Renderer
-	@param unsigned int - Starting level
 	*/
-	PlayState(StateManager* manager, SDL_Renderer* renderer, unsigned int level);
+	PlayState(StateManager* manager, SDL_Renderer* renderer);
 
 	~PlayState();
 
@@ -60,11 +60,6 @@ private:
 	
 	void enemyCollisions(EnemyManager &enemies, Player &player);
 
-	/**
-	@brief Checks if a game over has occurred (Reach end of level
-	@todo Add a game over screen, currently only prints to console.
-	
-	void checkGameOver();
 	*/
 
 	/**
@@ -75,8 +70,25 @@ private:
 	///The level manager which contains all of the levels data.
 	LevelManager* levels;
 
+	//Sprites
+	///Player Sprite
+	Texture* playerSprite;
+
+	///Bot A Sprite
+	Texture* botASprite;
+
+	///Bot B Sprite
+	Texture* botBSprite;
+
+	//Objects
 	///The Player
 	Player* player;
+
+	///Bot A
+	Bot* botA;
+
+	///Bot B
+	Bot* botB;
 
 	///Font
 	TTF_Font* font;

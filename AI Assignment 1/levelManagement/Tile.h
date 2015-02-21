@@ -35,8 +35,9 @@ public:
 	/**
 	@brief Render Tile relative to passed in camera
 	@param SDL_Rect* - The current camera
-	*/
+	
 	void render(SDL_Rect* camera);
+	*/
 
 	/**
 	@brief Get what tile type this tile is

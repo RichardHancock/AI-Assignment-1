@@ -1,3 +1,5 @@
+#pragma once
+
 #include "EntityWithMotion.h"
 
 class Bot : public EntityWithMotion

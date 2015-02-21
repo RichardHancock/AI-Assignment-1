@@ -77,14 +77,8 @@ namespace Utility
 	enum TileType
 	{
 		blank = 0,
-		block,
-		start,
-		finish,
-		platform,
-		platformHoles,
-		beamLeft,
-		beamRight,
-		blockWarning
+		floor,
+		wall,
 	};
 
 	//Timer Management

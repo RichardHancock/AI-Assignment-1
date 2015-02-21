@@ -1,8 +1,7 @@
 #include "PlayState.h"
-#include "GameOverState.h"
+#include "HelpState.h"
 
-PlayState::PlayState(StateManager* manager, SDL_Renderer* renderer,
-	unsigned int level)
+PlayState::PlayState(StateManager* manager, SDL_Renderer* renderer)
 	: State(manager, renderer)
 {
 	stateName = "Play State";
@@ -19,6 +18,12 @@ PlayState::PlayState(StateManager* manager, SDL_Renderer* renderer,
 PlayState::~PlayState()
 {
 	delete player;
+	delete botA;
+	delete botB;
+
+	delete playerSprite;
+	delete botASprite;
+	delete botBSprite;
 
 	TTF_CloseFont(font);
 	font = nullptr;
@@ -62,6 +67,8 @@ void PlayState::update(float dt)
 
 	player->update(dt);
 
+	botA->update(dt);
+	botB->update(dt);
 }
 
 void PlayState::render()
@@ -69,13 +76,21 @@ void PlayState::render()
 	levels->getLevel("Level 1")->render();
 	
 	player->render();
+
+	botA->render();
+	botB->render();
 }
 
 void PlayState::loadResources()
 {
 	std::string dir = "res/images/";
-	
-	//player = new Player(playerSprite, Vec2(360, 200), bulletSprite);
+	playerSprite = new Texture(dir + "player.png", renderer);
+	botASprite = new Texture(dir + "botA.png", renderer);
+	botBSprite = new Texture(dir + "botB.png", renderer);
+
+	player = new Player(playerSprite, Vec2(32, 32));
+	botA = new Bot(botASprite, Vec2(576, 416));
+	botB = new Bot(botBSprite, Vec2(32, 416));
 
 	font = TTF_OpenFont("res/fonts/OpenSans-Regular.ttf", 32);
 }
