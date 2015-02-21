@@ -10,14 +10,14 @@ class EntityWithMotion : public Entity
 {
 public:
 	/**
-	@brief Create an EntityWithMotion (#Abstract Base Class)
+	@brief Create an EntityWithMotion (Abstract Base Class)
 	@param Texture* - Entity's sprite
 	@param Vec2 - Starting position
 	*/
 	EntityWithMotion(Texture*, Vec2);
 
 	/**
-	@brief Create an EntityWithMotion (#Abstract Base Class)
+	@brief Create an EntityWithMotion (Abstract Base Class)
 	@param Texture* - Entity's sprite
 	@param Vec2 - Starting position
 	@param float - Maximum Rotation Speed

@@ -7,7 +7,7 @@
 #include "Level.h"
 
 /**
-@class Level Manager
+@class LevelManager
 @brief Loads level data and relevant images 
 */
 class LevelManager
@@ -31,8 +31,8 @@ public:
 
 	/**
 	@brief Load the level from a the lvl file
-	@param std::string - The level file
-	@param SDL_Renderer - Renderer
+	@param string - The level file
+	@param SDL_Renderer* - Renderer
 	@return bool - Success
 	*/
 	bool loadFile(std::string filename, SDL_Renderer* renderer);

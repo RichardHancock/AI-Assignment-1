@@ -62,8 +62,10 @@ void PlayState::update(float dt)
 	Utility::Timer::update(dt);
 
 	levels->getLevel("Level 1")->update(dt);
-	//worldCollisions(dt, *levels, *player);
-	//enemyCollisions(*enemyManager, *player);
+	
+	player->updateVelocities(dt);
+
+	collision(dt);
 
 	player->update(dt);
 
@@ -93,6 +95,31 @@ void PlayState::loadResources()
 	botB = new Bot(botBSprite, Vec2(32, 416));
 
 	font = TTF_OpenFont("res/fonts/OpenSans-Regular.ttf", 32);
+}
+
+void PlayState::collision(float dt)
+{
+	Vec2 playerNewPos = player->getPos() + (player->getVelocity() * dt);
+
+	SDL_Rect playerOld = player->getAABB();
+	SDL_Rect playerNew = playerOld;
+
+	playerNew.x = (int)playerNewPos.x;
+	playerNew.y = (int)playerNewPos.y;
+
+	SDL_Rect movementArea;
+	SDL_UnionRect(&playerOld, &playerNew, &movementArea);
+
+	std::vector<Tile*> tilesToProcess = levels->getLevel("Level 1")->checkTiles(movementArea);
+
+	for (unsigned int i = 0; i < (int)tilesToProcess.size(); i++)
+	{
+		SDL_Rect tileAABB = tilesToProcess[i]->getAABB();
+		if (SDL_HasIntersection(&tileAABB, &playerNew))
+		{
+			player->setVelocity(Vec2(0));
+		}
+	}
 }
 
 /*

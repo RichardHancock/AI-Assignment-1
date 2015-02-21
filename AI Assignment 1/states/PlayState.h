@@ -44,23 +44,12 @@ public:
 	void render();
 
 private:
-	/*
-	/**
-	@brief Check for collisions between the player and the world
-	@param float - delta time
-	@param LevelManager - Level manager containing the level data
-	@param Player - The player object
 	
-	void worldCollisions(float dt, LevelManager &levels, Player &player);
-
 	/**
-	@brief Check for collisions between the player and the enemies
-	@param EnemyManager - Enemy manager containing the enemies
-	@param Player - The player object
-	
-	void enemyCollisions(EnemyManager &enemies, Player &player);
-
+	@brief Check if the player is going to collide with the scenery next frame
+	@param float - DeltaTime
 	*/
+	void collision(float);
 
 	/**
 	@brief Load most of the resources require for gameplay (Mostly done to clean up the constructor)

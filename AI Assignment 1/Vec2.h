@@ -36,6 +36,16 @@ public:
 	}
 
 	/**
+	@brief Create a Vec2
+	@param float - X and Y value
+	*/
+	Vec2(float XY)
+	{
+		x = XY;
+		y = XY;
+	}
+
+	/**
 	@brief Get the length of the vector
 	@return float - length of vector
 	*/
@@ -87,8 +97,8 @@ public:
 	}
 	Vec2* operator = (int b)
 	{
-		x = b;
-		y = b;
+		x = (float)b;
+		y = (float)b;
 		return this;
 	}
 

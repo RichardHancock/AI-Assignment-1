@@ -11,7 +11,7 @@ class Entity
 {
 public:
 	/**
-	@brief Create an Entity (#Abstract Base Class)
+	@brief Create an Entity (Abstract Base Class)
 	@param Texture* - Entity's sprite
 	@param Vec2 - Starting position
 	*/

@@ -20,6 +20,14 @@ public:
 	~Player();
 
 	/**
+	@brief Updates the velocities of the player.
+
+	This is so that collision detection knows where the player will be next and prevent collision.
+	@param float - delta time
+	*/
+	void updateVelocities(float dt);
+
+	/**
 	@brief Updates the Internal values (Velocity/Pos)
 	@param float - delta time
 	*/

@@ -64,7 +64,7 @@ void Player::eventKeyboard(SDL_Event& e)
 	}
 }
 
-void Player::update(float dt)
+void Player::updateVelocities(float dt)
 {
 	velocity = 0;
 
@@ -78,7 +78,7 @@ void Player::update(float dt)
 		// We are told to move right
 		velocity.x = 150.0f;
 	}
-	
+
 	if (movingUp & !movingDown)
 	{
 		velocity.y = -150.0f;
@@ -88,6 +88,10 @@ void Player::update(float dt)
 		velocity.y = 150.0f;
 	}
 
+	
+}
 
+void Player::update(float dt)
+{
 	move(velocity * dt);
 }
