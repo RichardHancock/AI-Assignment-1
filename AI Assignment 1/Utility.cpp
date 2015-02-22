@@ -60,6 +60,83 @@ Vec2 Utility::getRectCenter(SDL_Rect rect)
 	return center;
 }
 
+bool Utility::lineIntersection(Vec2 a1, Vec2 a2, Vec2 b1, Vec2 b2)
+{
+	Vec2 b = a2 - a1;
+	Vec2 d = b2 - b1;
+	float bDotDPerp = b.x * d.y - b.y * d.x;
+
+	// if b dot d == 0, it means the lines are parallel so have infinite intersection points
+	if (bDotDPerp == 0)
+		return false;
+
+	Vec2 c = b1 - a1;
+	float t = (c.x * d.y - c.y * d.x) / bDotDPerp;
+	if (t < 0 || t > 1)
+		return false;
+
+	float u = (c.x * b.y - c.y * b.x) / bDotDPerp;
+	if (u < 0 || u > 1)
+		return false;
+
+	return true;
+}
+
+bool Utility::lineIntersection(Vec2 a1, Vec2 a2, Vec2 b1, Vec2 b2, Vec2& intersectPoint)
+{
+	intersectPoint = 0;
+
+	Vec2 b = a2 - a1;
+	Vec2 d = b2 - b1;
+	float bDotDPerp = b.x * d.y - b.y * d.x;
+
+	// if b dot d == 0, it means the lines are parallel so have infinite intersection points
+	if (bDotDPerp == 0)
+		return false;
+
+	Vec2 c = b1 - a1;
+	float t = (c.x * d.y - c.y * d.x) / bDotDPerp;
+	if (t < 0 || t > 1)
+		return false;
+
+	float u = (c.x * b.y - c.y * b.x) / bDotDPerp;
+	if (u < 0 || u > 1)
+		return false;
+
+	intersectPoint = a1 + b * t;
+
+	return true;
+}
+
+bool Utility::lineRectIntersection(Vec2 lineP1, Vec2 lineP2, SDL_Rect rect)
+{
+	//Could have used this instead: https://wiki.libsdl.org/SDL_IntersectRectAndLine
+
+	//tl - top left/ tr - top right/ bl - bottom left/ br - bottom right
+	Vec2 tl((float)rect.x, (float)rect.y);
+	Vec2 tr = tl;
+	tr.x += rect.w;
+
+	Vec2 bl = tl;
+	bl.y += rect.h;
+	Vec2 br = tr;
+	br.y += rect.h;
+	
+	if (
+		lineIntersection(lineP1, lineP2, tl, tr) ||
+		lineIntersection(lineP1, lineP2, tr, br) ||
+		lineIntersection(lineP1, lineP2, br, bl) ||
+		lineIntersection(lineP1, lineP2, bl, tl)
+	)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 //Timer
 
 std::unordered_map<std::string, Utility::Timer::TimerStruct> Utility::Timer::timers;

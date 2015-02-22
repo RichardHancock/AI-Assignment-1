@@ -70,6 +70,38 @@ namespace Utility
 	Vec2 getRectCenter(SDL_Rect rect);
 
 	/**
+	@brief Checks if two lines intersect
+	Code origanly from: http://stackoverflow.com/a/3746601
+	@param Vec2 - Line A point 1
+	@param Vec2 - Line A point 2
+	@param Vec2 - Line B point 1
+	@param Vec2 - Line B point 2
+	@return bool - Is there an intersection
+	*/
+	bool lineIntersection(Vec2 a1, Vec2 a2, Vec2 b1, Vec2 b2);
+
+	/**
+	@brief Checks if two lines intersect
+	Code origanly from: http://stackoverflow.com/a/3746601
+	@param Vec2 - Line A point 1
+	@param Vec2 - Line A point 2
+	@param Vec2 - Line B point 1
+	@param Vec2 - Line B point 2
+	@param Vec2& - out, The point where intersection occured
+	@return bool - Is there an intersection
+	*/
+	bool lineIntersection(Vec2 a1, Vec2 a2, Vec2 b1, Vec2 b2, Vec2& intersectPoint);
+
+	/**
+	@brief Checks for Intersection between a line and a rect
+	@param Vec2 - Line Point 1
+	@param Vec2 - Line Point 2
+	@param SDL_Rect - A rectangle
+	@return bool - Is there an intersection
+	*/
+	bool lineRectIntersection(Vec2 lineP1, Vec2 lineP2, SDL_Rect rect);
+
+	/**
 	@brief Enum containing all types of tiles
 	
 	This was in the level manager but was causing a recusive include loop that is easily avoided putting it here.

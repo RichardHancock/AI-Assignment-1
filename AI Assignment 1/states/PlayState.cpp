@@ -66,6 +66,10 @@ void PlayState::update(float dt)
 	player->updateVelocities(dt);
 
 	collision(dt);
+	if (lineOfSight(*levels->getLevel("Level 1"), *player, *botA))
+	{
+		Utility::log(Utility::I, "Seen");
+	}
 
 	player->update(dt);
 
@@ -122,108 +126,26 @@ void PlayState::collision(float dt)
 	}
 }
 
-/*
-//I have no idea how this works anymore, it has quite irritating bugs that I cannot fix without scraping it entirely
-void PlayState::worldCollisions(float dt, LevelManager &levels, Player &player)
+bool PlayState::lineOfSight(Level& level, Player& player, Bot& bot)
 {
-	//Calculate the area that collisions will need to be calculated in.
-	Vec2 playerNewPos = player.getPos() + (player.getVelocity() * dt);
-	SDL_Rect playerOld = player.getAABB();
-	SDL_Rect playerNew = playerOld;
-	playerNew.x = (int)playerNewPos.x;
-	playerNew.y = (int)playerNewPos.y;
-	Vec2 playerNewCenter = Utility::getRectCenter(playerNew);
-	SDL_Rect result;
-	SDL_UnionRect(&playerOld, &playerNew, &result);
+	Vec2 lineP1 = Utility::getRectCenter(player.getAABB());
+	Vec2 lineP2 = Utility::getRectCenter(bot.getAABB());
 
-	std::vector<Tile*> tilesToProcess = levels.getLevel("Level 1")->checkTiles(result);
+	SDL_Rect areaToTest;
+	SDL_UnionRect(&player.getAABB(), &bot.getAABB(), &areaToTest);
 
-	bool stillLanded = false;
+	std::vector<Tile*> tilesToProcess = level.checkTiles(areaToTest);
 
-	for (int i = 0; i < (int)tilesToProcess.size(); i++)
+	for (auto tile : tilesToProcess)
 	{
-		SDL_Rect tileAABB = tilesToProcess[i]->getAABB();
-		if (SDL_HasIntersection(&tileAABB, &playerNew))
+		if (tile->blocksVision())
 		{
-			//test x
-			bool movingLeft = false;
-			bool movingRight = false;
-			bool movingUp = false;
-			bool movingDown = false;
-
-			if (player.getVelocity().x < 0.0f)
+			if (Utility::lineRectIntersection(lineP1, lineP2, tile->getAABB()))
 			{
-				movingLeft = true;
-				//player.setVelocity(Vec2(0, player.getVelocity().y));
-			}
-			else if (player.getVelocity().x > 0.0f)
-			{
-				movingRight = true;
-			}
-
-			bool hitLeft = false;
-			bool hitRight = false;
-
-			if (movingLeft)
-			{
-				if (tilesToProcess[i]->getPos().x + tileAABB.w >= playerNewPos.x)
-				{
-					player.setVelocity(Vec2(0, player.getVelocity().y));
-					hitLeft = true;
-				}
-			}
-			else if (movingRight)
-			{
-				if (tilesToProcess[i]->getPos().x <= playerNewPos.x + playerNew.w)
-				{
-					hitRight = true;
-					player.setVelocity(Vec2(0, player.getVelocity().y));
-				}
-			}
-
-
-			//test y
-			if (player.getVelocity().y < 0.0f)
-			{
-				movingUp = true;
-			}
-			else if (player.getVelocity().y > 0.0f)
-			{
-				movingDown = true;
-			}
-
-			
-			if (movingUp)
-			{
-				if (tilesToProcess[i]->getPos().y + tileAABB.h >= playerNewPos.y)
-				{
-					player.setVelocity(Vec2(player.getVelocity().x, 0));
-				}
-			}
-			if (movingDown && !hitLeft && !hitRight)
-			{
-				if (tilesToProcess[i]->getPos().y <= playerNewPos.y + playerNew.h )
-				{
-					stillLanded = true;
-					//if (!player.landed)
-					//{
-						player.setVelocity(Vec2(player.getVelocity().x, 0));
-						float newYPos = (tilesToProcess[i]->getPos().y) - player.getDimensions().y;
-						player.setPos(Vec2(player.getPos().x, newYPos));
-						player.landed = true;
-					//}
-					
-				}
+				return false;
 			}
 		}
+		
 	}
-
-	player.landed = stillLanded;
+	return true;
 }
-
-void PlayState::enemyCollisions(EnemyManager &enemies, Player &player)
-{
-	//Checks for any collisions with enemies and then applies any damage to the player
-	player.hit(enemies.playerCollision(&player.getAABB()));
-}
-*/

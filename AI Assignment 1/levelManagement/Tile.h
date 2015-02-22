@@ -33,11 +33,11 @@ public:
 	bool isCollidable();
 
 	/**
-	@brief Render Tile relative to passed in camera
-	@param SDL_Rect* - The current camera
-	
-	void render(SDL_Rect* camera);
+	@brief Does this tile block vision
+	@return bool - True if it blocks vision, false if not
 	*/
+	bool blocksVision();
+
 
 	/**
 	@brief Get what tile type this tile is
