@@ -113,5 +113,8 @@
     <ClInclude Include="states\HelpState.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

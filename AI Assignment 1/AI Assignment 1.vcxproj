@@ -88,6 +88,7 @@
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI.h" />
     <ClInclude Include="Bot.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityWithMotion.h" />
