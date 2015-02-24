@@ -15,6 +15,9 @@
 */
 namespace Utility
 {
+	///The dimensions of the tiles
+	const float tileDimension = 32.0f;
+
 	/**
 	@brief Initialize the Random Number functions
 

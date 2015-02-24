@@ -85,6 +85,13 @@ void PlayState::render()
 
 	botA->render();
 	botB->render();
+
+	//Show the line of sight
+	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 0);
+	Vec2 playerPos(Utility::getRectCenter(player->getAABB()));
+	Vec2 botAPos(Utility::getRectCenter(botA->getAABB()));
+	SDL_RenderDrawLine(renderer, playerPos.x, playerPos.y, botAPos.x, botAPos.y);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 }
 
 void PlayState::loadResources()

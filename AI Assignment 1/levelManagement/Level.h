@@ -41,6 +41,10 @@ public:
 
 
 private:
+
+	/// Setups the Nodes for this level so that the AI can function
+	void setupAI();
+
 	///Vector of all tiles in the level
 	std::vector<std::vector<Tile*>> tiles;
 

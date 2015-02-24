@@ -1,10 +1,11 @@
 #include "Level.h"
+#include "../AI.h"
 
 Level::Level(std::vector<std::vector<Tile*>> &tiles, int tileCountW, int tileCountH)
 	: tiles(tiles), tileCountW(tileCountW), tileCountH(tileCountH), levelWidth(tileCountW * (int)tileDimensions.x)
 	, levelHeight(tileCountH * (int)tileDimensions.y)
 {
-
+	setupAI();
 }
 
 
@@ -76,4 +77,42 @@ std::vector<Tile*> Level::checkTiles(SDL_Rect selection)
 	}
 
 	return results;
+}
+
+void Level::setupAI()
+{
+	std::vector<std::vector<AI::Node*>> nodes;
+	//Set the vector to the correct size
+	nodes.resize(tileCountW);
+	for (unsigned int i = 0; i < nodes.size(); i++)
+	{
+		nodes[i].resize(tileCountH);
+	}
+
+	//Loop over all the tiles and create a Node for it
+	for (int x = 0; x < tileCountW; x++)
+	{
+		for (int y = 0; y < tileCountH; y++)
+		{
+			Tile* curTile = tiles[x][y];
+			
+			AI::Node* node;
+
+			if (curTile == nullptr)
+			{
+				Vec2 pos(x * tileDimensions.x, y * tileDimensions.y);
+				node = new AI::Node(pos, false);
+			}
+			else
+			{
+				node = new AI::Node(curTile->getPos(), curTile->isCollidable());
+			}
+			
+			nodes[x][y] = node;
+			
+		}
+	}
+
+	AI::Astar::initNodes(nodes);
+
 }
