@@ -16,11 +16,11 @@ namespace AI
 
 		//Getters and Setters
 		float f() { return fVar; }
-		float calculateF() { fVar = gVar + hVar; }
+		void calculateF() { fVar = gVar + hVar; }
 		float g() { return gVar; }
-		float g(float newg) { gVar = newg; }
+		void g(float newg) { gVar = newg; }
 		float h() { return hVar; }
-		float h(float newh) { hVar = newh; }
+		void h(float newh) { hVar = newh; }
 
 		Vec2 getParent() { return parent; }
 
@@ -69,11 +69,21 @@ namespace AI
 
 		bool targetReached;
 
+		/**
+		@brief Checks if an index is safe (Not out of bounds)
+		@param Vec2 - The x and y index of the node
+		@return bool - True if safe
+		*/
+		bool checkIndexSafe(Vec2 index);
+
 		Node getNodeByPos(Vec2 pos);
 
 		void findNextNode();
 
-		std::vector<Node> getAdjacentNodes();
+		///@todo Refactor get rid of all the excesive casting
+		std::vector<Node> getSafeAdjacentNodes();
+
+		unsigned int manhattanHeuristic(Vec2 index);
 	};
 	
 }
