@@ -10,6 +10,8 @@ namespace AI
 	class Node
 	{
 	public:
+		Node();
+
 		Node(Vec2 pos, bool isCollidable);
 
 		bool isCollidable() { return collidable; }
@@ -31,6 +33,7 @@ namespace AI
 
 		Vec2 getIndex() { return indexPos; }
 
+		Vec2 getPos() { return pos; }
 	private:
 		Vec2 pos;
 
@@ -52,11 +55,14 @@ namespace AI
 	class Astar
 	{
 	public:
+		Astar();
 		~Astar();
 
-		void searchAStar(Tile* start, Tile* target);
+		std::vector<Vec2> searchAStar(Vec2 start, Vec2 target);
 		static void initNodes(std::vector<std::vector<Node*>> nodes);
 		static void deleteNodes();
+
+		void devRender(SDL_Renderer* renderer);
 	private:
 		static std::vector<std::vector<Node*>> nodes;
 
@@ -65,9 +71,13 @@ namespace AI
 
 		Node currentNode;
 
+		Node start;
+
 		Node target;
 
 		bool targetReached;
+
+		
 
 		/**
 		@brief Checks if an index is safe (Not out of bounds)
@@ -78,12 +88,18 @@ namespace AI
 
 		Node getNodeByPos(Vec2 pos);
 
+		void exploreAdjacent();
+
 		void findNextNode();
+
+		std::vector<Vec2> retraceSteps();
 
 		///@todo Refactor get rid of all the excesive casting
 		std::vector<Node> getSafeAdjacentNodes();
 
 		unsigned int manhattanHeuristic(Vec2 index);
+
+		bool alreadyFound(Node n);
 	};
 	
 }

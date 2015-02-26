@@ -13,6 +13,10 @@ PlayState::PlayState(StateManager* manager, SDL_Renderer* renderer)
 	levels = new LevelManager("res/levels/Level 1.lvl", renderer);
 	//player->setPos(levels->getLevel("Level 1")->getStartPos());
 
+	astar = new AI::Astar();
+
+	pathTest = astar->searchAStar(Vec2(64,64), Vec2(576, 416));
+
 }
 
 PlayState::~PlayState()
@@ -91,6 +95,18 @@ void PlayState::render()
 	Vec2 playerPos(Utility::getRectCenter(player->getAABB()));
 	Vec2 botAPos(Utility::getRectCenter(botA->getAABB()));
 	SDL_RenderDrawLine(renderer, playerPos.x, playerPos.y, botAPos.x, botAPos.y);
+
+	//astar->devRender(renderer);
+	for (auto step : pathTest)
+	{
+		SDL_Rect rect;
+		rect.x = step.x;
+		rect.y = step.y;
+		rect.h = 32;
+		rect.w = 32;
+		SDL_RenderDrawRect(renderer, &rect);
+	}
+
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 }
 

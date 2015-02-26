@@ -8,6 +8,7 @@
 #include "../levelManagement/LevelManager.h"
 #include "../Player.h"
 #include "../Bot.h"
+#include "../AI.h"
 
 #pragma once
 
@@ -91,4 +92,8 @@ private:
 	///Font
 	TTF_Font* font;
 
+	///@todo just for testing remove
+	AI::Astar* astar;
+
+	std::vector<Vec2> pathTest;
 };
