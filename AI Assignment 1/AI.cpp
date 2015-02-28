@@ -48,15 +48,15 @@ void Astar::devRender(SDL_Renderer* renderer)
 	for(auto node : closedList)
 	{
 		SDL_Rect rect;
-		rect.x = node.getPos().x;
-		rect.y = node.getPos().y;
+		rect.x = (int)node.getPos().x;
+		rect.y = (int)node.getPos().y;
 		rect.h = 32;
 		rect.w = 32;
 		SDL_RenderDrawRect(renderer, &rect);
 	}
 }
 
-std::vector<Vec2> Astar::searchAStar(Vec2 startTile, Vec2 targetTile)
+std::stack<Vec2> Astar::searchAStar(Vec2 startTile, Vec2 targetTile)
 {
 	//Find the targetTiles node
 	target = getNodeByPos(targetTile);
@@ -87,7 +87,7 @@ std::vector<Vec2> Astar::searchAStar(Vec2 startTile, Vec2 targetTile)
 		if (executionCap == 0)
 		{
 			Utility::log(Utility::W, "A* loop exceeded its execution cap");
-			std::vector<Vec2> failed;
+			std::stack<Vec2> failed;
 			return failed;
 		}
 	}
@@ -117,8 +117,8 @@ void Astar::findNextNode()
 {
 	//This finds the smallest f score and if there are multiple it takes the most recent
 
-	//Pre set to a very high number
-	unsigned int smallestFScore = 100000;
+	//Pre-set to a very high number
+	float smallestFScore = 100000;
 	unsigned int smallestFNodeIndex;
 
 	for (unsigned int i = 0; i < openList.size(); i++)
@@ -148,9 +148,9 @@ void Astar::findNextNode()
 	currentNode = nextNode;
 }
 
-std::vector<Vec2> Astar::retraceSteps()
+std::stack<Vec2> Astar::retraceSteps()
 {
-	std::vector<Vec2> result;
+	std::stack<Vec2> result;
 	bool backHome = false;
 
 	//Set the parent to equal the last element of the vector so that it will work the first time
@@ -163,7 +163,8 @@ std::vector<Vec2> Astar::retraceSteps()
 
 		if (node.getIndex() == parent)
 		{
-			result.push_back(node.getPos());
+			
+			result.push(node.getPos());
 			
 			if (node.getIndex() == start.getIndex())
 			{
@@ -179,7 +180,7 @@ std::vector<Vec2> Astar::retraceSteps()
 	}
 
 	//Might need this to flip the vector: http://www.cplusplus.com/reference/algorithm/reverse/
-
+	
 	return result;
 }
 

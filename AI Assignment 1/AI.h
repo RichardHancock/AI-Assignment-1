@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <stack>
 
 #include "levelManagement/Tile.h"
 #include "Vec2.h"
@@ -58,7 +59,7 @@ namespace AI
 		Astar();
 		~Astar();
 
-		std::vector<Vec2> searchAStar(Vec2 start, Vec2 target);
+		std::stack<Vec2> searchAStar(Vec2 start, Vec2 target);
 		static void initNodes(std::vector<std::vector<Node*>> nodes);
 		static void deleteNodes();
 
@@ -92,7 +93,7 @@ namespace AI
 
 		void findNextNode();
 
-		std::vector<Vec2> retraceSteps();
+		std::stack<Vec2> retraceSteps();
 
 		///@todo Refactor get rid of all the excesive casting
 		std::vector<Node> getSafeAdjacentNodes();

@@ -72,6 +72,9 @@
     <ClCompile Include="AI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EntityWithNavigation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h">
@@ -117,6 +120,9 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="AI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityWithNavigation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

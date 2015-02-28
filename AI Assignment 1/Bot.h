@@ -1,8 +1,8 @@
 #pragma once
 
-#include "EntityWithMotion.h"
+#include "EntityWithNavigation.h"
 
-class Bot : public EntityWithMotion
+class Bot : public EntityWithNavigation
 {
 public:
 
@@ -12,5 +12,5 @@ public:
 
 	void update(float dt);
 private:
-	bool pathFound;
+	
 };

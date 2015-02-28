@@ -76,6 +76,7 @@
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityWithMotion.cpp" />
+    <ClCompile Include="EntityWithNavigation.cpp" />
     <ClCompile Include="levelManagement\Level.cpp" />
     <ClCompile Include="levelManagement\LevelManager.cpp" />
     <ClCompile Include="levelManagement\Tile.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="Bot.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityWithMotion.h" />
+    <ClInclude Include="EntityWithNavigation.h" />
     <ClInclude Include="levelManagement\Level.h" />
     <ClInclude Include="levelManagement\LevelManager.h" />
     <ClInclude Include="levelManagement\Tile.h" />

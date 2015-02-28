@@ -91,9 +91,4 @@ private:
 
 	///Font
 	TTF_Font* font;
-
-	///@todo just for testing remove
-	AI::Astar* astar;
-
-	std::vector<Vec2> pathTest;
 };
