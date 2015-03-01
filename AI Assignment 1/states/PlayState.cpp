@@ -71,8 +71,8 @@ void PlayState::update(float dt)
 
 	player->update(dt);
 
-	botA->updateOtherAABBs(player->getAABB(), botB->getAABB());
-	botB->updateOtherAABBs(player->getAABB(), botA->getAABB());
+	botA->updateOtherAABBs(player->getAABB(), botB->getAABB(), botB->getPreviousWP());
+	botB->updateOtherAABBs(player->getAABB(), botA->getAABB(), botA->getPreviousWP());
 	
 	botA->update(dt);
 	botB->update(dt);

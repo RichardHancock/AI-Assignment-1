@@ -3,7 +3,8 @@
 EntityWithNavigation::EntityWithNavigation(Texture* sprite, Vec2 pos)
 	: EntityWithMotion(sprite, pos), finishedNavigation(true), distanceToWP(0), displayPath(true)
 {
-
+	stop = false;
+	lastNavigationWP = pos;
 }
 
 EntityWithNavigation::~EntityWithNavigation()
@@ -40,6 +41,8 @@ void EntityWithNavigation::generatePath(Vec2 target)
 
 	distanceToWP = temp.x + temp.y;
 
+	lastNavigationWP = curWP;
+
 	startMoving();
 }
 
@@ -47,7 +50,7 @@ void EntityWithNavigation::nextWaypoint()
 {
 	waypoints.pop();
 
-	if (waypoints.size() != 0)
+	if (waypoints.size() != 0 && !stop)
 	{
 		Vec2 curWP = waypoints.top();
 		Vec2 temp;
@@ -57,11 +60,21 @@ void EntityWithNavigation::nextWaypoint()
 
 		distanceToWP = temp.x + temp.y;
 
+		if (waypoints.size() != 1)
+			lastNavigationWP = curWP;
+
 		startMoving();
 	} 
 	else
 	{
+		stop = false;
+		
 		finishedNavigation = true;
+
+		while (!waypoints.empty())
+		{
+			waypoints.pop();
+		}
 	}
 }
 
@@ -71,28 +84,28 @@ void EntityWithNavigation::startMoving()
 
 	Vec2 curWP = waypoints.top();
 
-	float speed = 50.0f;
+	float speed = 150.0f;
 
 	if (pos.x > curWP.x)
 	{
 		velocity.x = -speed;
-		Utility::log(Utility::I, "Going left");
+		//Utility::log(Utility::I, "Going left");
 	}
 	else if (pos.x < curWP.x)
 	{
 		velocity.x = speed;
-		Utility::log(Utility::I, "Going right");
+		//Utility::log(Utility::I, "Going right");
 	}
 	
 	if (pos.y > curWP.y)
 	{
 		velocity.y = -speed;
-		Utility::log(Utility::I, "Going up");
+		//Utility::log(Utility::I, "Going up");
 	}
 	else if (pos.y < curWP.y)
 	{
 		velocity.y = speed;
-		Utility::log(Utility::I, "Going down");
+		//Utility::log(Utility::I, "Going down");
 	}
 }
 
@@ -156,4 +169,14 @@ void EntityWithNavigation::render()
 		}
 		SDL_SetRenderDrawColor(sprite->getRenderer(), 0, 0, 0, 0);
 	}
+}
+
+void EntityWithNavigation::stopAtNextWaypoint()
+{
+	stop = true;
+}
+
+Vec2 EntityWithNavigation::getPreviousWP()
+{
+	return lastNavigationWP;
 }

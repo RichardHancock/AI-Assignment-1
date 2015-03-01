@@ -23,7 +23,7 @@ public:
 	
 	virtual void update(float dt);
 
-	void updateOtherAABBs(SDL_Rect player, SDL_Rect bot);
+	void updateOtherAABBs(SDL_Rect player, SDL_Rect bot, Vec2 botLastWP);
 
 private:
 	
@@ -49,6 +49,8 @@ private:
 	SDL_Rect curPlayerAABB;
 
 	SDL_Rect otherBotAABB;
+
+	SDL_Rect otherBotLastWPAABB;
 
 	/**
 	@brief Checks for line of sight between two entity's

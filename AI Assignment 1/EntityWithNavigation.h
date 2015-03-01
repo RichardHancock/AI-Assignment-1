@@ -31,6 +31,8 @@ public:
 	void showPath(bool);
 
 	void render();
+
+	Vec2 getPreviousWP();
 protected:
 	std::stack<Vec2> waypoints;
 
@@ -42,7 +44,13 @@ protected:
 
 	bool displayPath;
 
+	bool stop;
+
+	Vec2 lastNavigationWP;
+
 	void nextWaypoint();
 
 	void startMoving();
+
+	void stopAtNextWaypoint();
 };

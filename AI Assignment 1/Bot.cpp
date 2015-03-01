@@ -63,17 +63,21 @@ void Bot::behavioursB()
 	case Stopped:
 		if (seenByPlayer)
 		{
+			Utility::log(Utility::I, "Bot B: switched to the \"PlanningToFlee\" behaviour");
 			curBehaviour = PlaningToFlee;
 		}
-		else if (lineOfSight(*levels->getLevel("Level 1"), otherBotAABB))
+		else if (lineOfSight(*levels->getLevel("Level 1"), otherBotAABB)
+			&& pos != Vec2(otherBotLastWPAABB.x, otherBotLastWPAABB.y))
 		{
-			spottedOtherBot = true;
-			
+			generatePath(Vec2(otherBotLastWPAABB.x, otherBotLastWPAABB.y));
+			Utility::log(Utility::I, "Bot B: switched to the \"Following\" behaviour");
+			curBehaviour = Following;
 		}
 		break;
 	case PlaningToFlee:
 
 		generatePath(findHiddenTile());
+		Utility::log(Utility::I, "Bot B: switched to the \"Fleeing\" behaviour");
 		curBehaviour = Fleeing;
 
 		break;
@@ -82,12 +86,23 @@ void Bot::behavioursB()
 		
 		if (finishedNavigation)
 		{
+			Utility::log(Utility::I, "Bot B: switched to the \"Stopped\" behaviour");
 			curBehaviour = Stopped;
 		}
 
 		break;
 
 	case Following:
+		if (seenByPlayer && !stop)
+		{
+			stop = true;
+		}
+		
+		if (finishedNavigation)
+		{
+			Utility::log(Utility::I, "Bot B: switched to the \"Stopped\" behaviour");
+			curBehaviour = Stopped;
+		}
 
 		break;
 
@@ -145,10 +160,13 @@ bool Bot::lineOfSight(Level& level, SDL_Rect& a, SDL_Rect& b)
 }
 
 
-void Bot::updateOtherAABBs(SDL_Rect player, SDL_Rect bot)
+void Bot::updateOtherAABBs(SDL_Rect player, SDL_Rect bot, Vec2 botLastWP)
 {
 	curPlayerAABB = player;
 	otherBotAABB = bot;
+	otherBotLastWPAABB.x = botLastWP.x;
+	otherBotLastWPAABB.y = botLastWP.y;
+	otherBotLastWPAABB.h = otherBotLastWPAABB.w = 32;
 }
 
 Vec2 Bot::findHiddenTile()
@@ -160,7 +178,7 @@ Vec2 Bot::findHiddenTile()
 
 	while (!hidden)
 	{
-		Utility::log(Utility::I, "Finding");
+		//Utility::log(Utility::I, "Finding");
 		Vec2 index;
 		index.x = Utility::randomInt(0, levelMax.x - 1);
 		index.y = Utility::randomInt(0, levelMax.y - 1);
