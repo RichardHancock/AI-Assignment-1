@@ -1,6 +1,7 @@
+#pragma once
+
 #include <iostream>
 
-#pragma once
 
 /**
 @brief Stores a 2D Vector or Position, as floats

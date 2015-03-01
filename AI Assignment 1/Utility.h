@@ -1,3 +1,5 @@
+#pragma once
+
 #include <time.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -7,8 +9,6 @@
 #include <unordered_map>
 
 #include "Vec2.h"
-
-#pragma once
 
 /**
 @brief An assortment of useful functions (random numbers, logging) that don't fit elsewhere.
@@ -207,4 +207,3 @@ struct Colour
 	*/
 	Colour(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
 };
-

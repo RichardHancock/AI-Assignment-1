@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 
+
 Entity::Entity(Texture* inputTexture, Vec2 inputPos)
 {
 	pos = inputPos;

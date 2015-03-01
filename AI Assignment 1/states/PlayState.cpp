@@ -7,12 +7,13 @@ PlayState::PlayState(StateManager* manager, SDL_Renderer* renderer)
 	stateName = "Play State";
 	///@todo Change Level manager to use the uint level parameter
 	
-	loadResources();
+	
 
 	//Load Level
 	levels = new LevelManager("res/levels/Level 1.lvl", renderer);
 
-	botA->generatePath(Vec2(96, 96));
+	loadResources();
+
 }
 
 PlayState::~PlayState()
@@ -66,13 +67,13 @@ void PlayState::update(float dt)
 	player->updateVelocities(dt);
 
 	collision(dt);
-	if (lineOfSight(*levels->getLevel("Level 1"), *player, *botA))
-	{
-		Utility::log(Utility::I, "Seen");
-	}
+	
 
 	player->update(dt);
 
+	botA->updateOtherAABBs(player->getAABB(), botB->getAABB());
+	botB->updateOtherAABBs(player->getAABB(), botA->getAABB());
+	
 	botA->update(dt);
 	botB->update(dt);
 }
@@ -114,8 +115,8 @@ void PlayState::loadResources()
 	botBSprite = new Texture(dir + "botB.png", renderer);
 
 	player = new Player(playerSprite, Vec2(32, 32));
-	botA = new Bot(botASprite, Vec2(576, 416));
-	botB = new Bot(botBSprite, Vec2(32, 416));
+	botA = new Bot(botASprite, Vec2(576, 416), false, levels);
+	botB = new Bot(botBSprite, Vec2(32, 416), true, levels);
 
 	font = TTF_OpenFont("res/fonts/OpenSans-Regular.ttf", 32);
 }
@@ -145,26 +146,3 @@ void PlayState::collision(float dt)
 	}
 }
 
-bool PlayState::lineOfSight(Level& level, Player& player, Bot& bot)
-{
-	Vec2 lineP1 = Utility::getRectCenter(player.getAABB());
-	Vec2 lineP2 = Utility::getRectCenter(bot.getAABB());
-
-	SDL_Rect areaToTest;
-	SDL_UnionRect(&player.getAABB(), &bot.getAABB(), &areaToTest);
-
-	std::vector<Tile*> tilesToProcess = level.checkTiles(areaToTest);
-
-	for (auto tile : tilesToProcess)
-	{
-		if (tile->blocksVision())
-		{
-			if (Utility::lineRectIntersection(lineP1, lineP2, tile->getAABB()))
-			{
-				return false;
-			}
-		}
-		
-	}
-	return true;
-}

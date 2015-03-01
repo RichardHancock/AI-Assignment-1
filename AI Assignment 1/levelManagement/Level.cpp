@@ -116,3 +116,8 @@ void Level::setupAI()
 	AI::Astar::initNodes(nodes);
 
 }
+
+Tile* Level::getTileByIndex(Vec2 index)
+{
+	return tiles[index.x][index.y];
+}

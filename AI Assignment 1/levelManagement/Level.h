@@ -39,14 +39,7 @@ public:
 	*/
 	std::vector<Tile*> checkTiles(SDL_Rect);
 
-
-private:
-
-	/// Setups the Nodes for this level so that the AI can function
-	void setupAI();
-
-	///Vector of all tiles in the level
-	std::vector<std::vector<Tile*>> tiles;
+	Tile* getTileByIndex(Vec2 index);
 
 	///The Dimension of all tiles
 	const Vec2 tileDimensions = { 32, 32 };
@@ -62,4 +55,14 @@ private:
 
 	///Level's height in pixels
 	const int levelHeight;
+
+private:
+
+	/// Setups the Nodes for this level so that the AI can function
+	void setupAI();
+
+	///Vector of all tiles in the level
+	std::vector<std::vector<Tile*>> tiles;
+
+	
 };

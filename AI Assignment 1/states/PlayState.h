@@ -53,15 +53,6 @@ private:
 	void collision(float);
 
 	/**
-	@brief Checks for line of sight between two entity's
-	@param Level& - The level
-	@param Player& - The player
-	@param Bot& - The bot
-	@return bool - Has line of sight
-	*/
-	bool lineOfSight(Level& level, Player& player, Bot& bot);
-
-	/**
 	@brief Load most of the resources require for gameplay (Mostly done to clean up the constructor)
 	*/
 	void loadResources();
