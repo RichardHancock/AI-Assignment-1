@@ -91,7 +91,12 @@ void PlayState::render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 0);
 	Vec2 playerPos(Utility::getRectCenter(player->getAABB()));
 	Vec2 botAPos(Utility::getRectCenter(botA->getAABB()));
+	Vec2 botBPos(Utility::getRectCenter(botB->getAABB()));
 	SDL_RenderDrawLine(renderer, (int)playerPos.x, (int)playerPos.y, (int)botAPos.x, (int)botAPos.y);
+	SDL_RenderDrawLine(renderer, (int)playerPos.x, (int)playerPos.y, (int)botBPos.x, (int)botBPos.y);
+	
+	SDL_SetRenderDrawColor(renderer, 255, 255, 0, 0);
+	SDL_RenderDrawLine(renderer, (int)botAPos.x, (int)botAPos.y, (int)botBPos.x, (int)botBPos.y);
 
 	/*astar->devRender(renderer);
 	for (auto step : pathTest)
