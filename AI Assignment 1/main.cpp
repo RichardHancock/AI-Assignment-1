@@ -44,7 +44,7 @@ int init()
 		Utility::log(Utility::E, "SDL_mixer init failed: " + std::string(Mix_GetError()));
 	}
 
-	window = SDL_CreateWindow("Space Platform Prometheus by Richard Hancock",
+	window = SDL_CreateWindow("AI Assignment 1 by Richard Hancock",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		WIN_WIDTH, WIN_HEIGHT,
 		SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
