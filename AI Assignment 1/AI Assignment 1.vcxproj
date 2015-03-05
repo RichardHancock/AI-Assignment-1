@@ -82,7 +82,6 @@
     <ClCompile Include="levelManagement\Tile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="states\HelpState.cpp" />
     <ClCompile Include="states\PlayState.cpp" />
     <ClCompile Include="states\State.cpp" />
     <ClCompile Include="states\StateManager.cpp" />
@@ -99,7 +98,6 @@
     <ClInclude Include="levelManagement\LevelManager.h" />
     <ClInclude Include="levelManagement\Tile.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="states\HelpState.h" />
     <ClInclude Include="states\PlayState.h" />
     <ClInclude Include="states\State.h" />
     <ClInclude Include="states\StateManager.h" />

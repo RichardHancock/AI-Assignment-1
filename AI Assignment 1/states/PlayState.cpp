@@ -1,5 +1,4 @@
 #include "PlayState.h"
-#include "HelpState.h"
 
 PlayState::PlayState(StateManager* manager, SDL_Renderer* renderer)
 	: State(manager, renderer)
