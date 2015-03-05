@@ -30,6 +30,7 @@ void Bot::behavioursA()
 		
 		if (seenByPlayer)
 		{
+			Utility::log(Utility::I, "Bot A: switched to the \"PlanningToFlee\" behaviour");
 			curBehaviour = PlaningToFlee;
 		}
 
@@ -39,13 +40,14 @@ void Bot::behavioursA()
 
 		generatePath(findHiddenTile());
 		curBehaviour = Fleeing;
-
+		Utility::log(Utility::I, "Bot A: switched to the \"Fleeing\" behaviour");
 		break;
 
 	case Fleeing:
 		
 		if (finishedNavigation)
 		{
+			Utility::log(Utility::I, "Bot A: switched to the \"Stopped\" behaviour");
 			curBehaviour = Stopped;
 		}
 
@@ -67,9 +69,9 @@ void Bot::behavioursB()
 			curBehaviour = PlaningToFlee;
 		}
 		else if (lineOfSight(*levels->getLevel("Level 1"), otherBotAABB)
-			&& pos != Vec2(otherBotLastWPAABB.x, otherBotLastWPAABB.y))
+			&& pos != Vec2((float)otherBotLastWPAABB.x, (float)otherBotLastWPAABB.y))
 		{
-			generatePath(Vec2(otherBotLastWPAABB.x, otherBotLastWPAABB.y));
+			generatePath(Vec2((float)otherBotLastWPAABB.x, (float)otherBotLastWPAABB.y));
 			Utility::log(Utility::I, "Bot B: switched to the \"Following\" behaviour");
 			curBehaviour = Following;
 		}
@@ -164,8 +166,8 @@ void Bot::updateOtherAABBs(SDL_Rect player, SDL_Rect bot, Vec2 botLastWP)
 {
 	curPlayerAABB = player;
 	otherBotAABB = bot;
-	otherBotLastWPAABB.x = botLastWP.x;
-	otherBotLastWPAABB.y = botLastWP.y;
+	otherBotLastWPAABB.x = (int)botLastWP.x;
+	otherBotLastWPAABB.y = (int)botLastWP.y;
 	otherBotLastWPAABB.h = otherBotLastWPAABB.w = 32;
 }
 
@@ -174,14 +176,14 @@ Vec2 Bot::findHiddenTile()
 	Vec2 result;
 
 	bool hidden = false;
-	Vec2 levelMax(levels->getLevel("Level 1")->tileCountW, levels->getLevel("Level 1")->tileCountH);
+	Vec2 levelMax((float)levels->getLevel("Level 1")->tileCountW, (float)levels->getLevel("Level 1")->tileCountH);
 
 	while (!hidden)
 	{
 		//Utility::log(Utility::I, "Finding");
 		Vec2 index;
-		index.x = Utility::randomInt(0, levelMax.x - 1);
-		index.y = Utility::randomInt(0, levelMax.y - 1);
+		index.x = (float)Utility::randomInt(0, (int)levelMax.x - 1);
+		index.y = (float)Utility::randomInt(0, (int)levelMax.y - 1);
 		Tile* randomTile = levels->getLevel("Level 1")->getTileByIndex(index);
 
 		if (randomTile == nullptr)

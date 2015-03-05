@@ -119,5 +119,5 @@ void Level::setupAI()
 
 Tile* Level::getTileByIndex(Vec2 index)
 {
-	return tiles[index.x][index.y];
+	return tiles[(int)index.x][(int)index.y];
 }

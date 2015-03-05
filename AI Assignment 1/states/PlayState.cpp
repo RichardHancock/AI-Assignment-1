@@ -5,7 +5,7 @@ PlayState::PlayState(StateManager* manager, SDL_Renderer* renderer)
 	: State(manager, renderer)
 {
 	stateName = "Play State";
-	///@todo Change Level manager to use the uint level parameter
+	
 	
 	
 

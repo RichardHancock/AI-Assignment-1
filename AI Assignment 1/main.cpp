@@ -109,6 +109,7 @@ int main(int argc, char *argv[])
 
 void cleanup()
 {
+	AI::Astar::deleteNodes();
 	IMG_Quit();
 	Mix_CloseAudio();
 	Mix_Quit();

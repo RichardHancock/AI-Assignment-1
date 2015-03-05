@@ -38,8 +38,6 @@ namespace Utility
 	/**
 	@brief Generate a random float number between min and max
 
-	@todo This function is possibly unstable, it just started working with no real changes.
-
 	@param float - Minimum Number for the range
 	@param float - Maximum Number for the range
 	@return float - Random float between min and max

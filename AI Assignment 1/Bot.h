@@ -4,10 +4,15 @@
 #include "levelManagement/LevelManager.h"
 #include "Player.h"
 
+/**
+@class Bot
+@brief An AI that follows a state machine and has pathfinding
+*/
 class Bot : public EntityWithNavigation
 {
 public:
 
+	///Enum of the behaviours the Bot can use
 	enum Behaviour
 	{
 		Stopped,
@@ -16,13 +21,25 @@ public:
 		Following
 	};
 
+	/**
+	@brief Create the Bot
+	@param Texture* - Bot's sprite
+	@param Vec2 - Initial Position
+	@param bool - Whether the Bot should use the "Bot B" Behaviour set
+	@param LevelManager* - The level Manager
+	*/
 	Bot(Texture* sprite, Vec2 initPos, bool behaviourSetB, LevelManager* levels);
 
+	///Delete Bot
 	~Bot();
 
-	
+	/// Update the Bot's internal values
 	virtual void update(float dt);
 
+	/**
+	@brief Update the Bot's knowledge of the player and bot positions
+	@param
+	*/
 	void updateOtherAABBs(SDL_Rect player, SDL_Rect bot, Vec2 botLastWP);
 
 private:
@@ -39,17 +56,22 @@ private:
 	//Bot B Behaviours
 	void behavioursB();
 
+	///Does the player currently have line of sight with the bot
 	bool seenByPlayer;
 
+	///Does the bot have line of sight with the other bot
 	bool spottedOtherBot;
 
 	///Needed for line of sight (Must be a better way of doing this)
 	LevelManager* levels;
 
+	///The player's current position and AABB
 	SDL_Rect curPlayerAABB;
 
+	///The other bot's current actual position and AABB
 	SDL_Rect otherBotAABB;
 
+	/// The other bots last known waypoint (used for following)
 	SDL_Rect otherBotLastWPAABB;
 
 	/**
@@ -69,6 +91,9 @@ private:
 	*/
 	bool lineOfSight(Level& level, SDL_Rect& a, SDL_Rect& b);
 
-
+	/**
+	@brief Finds a random hidden tile out of sight from the player.
+	@return Vec2 - Index to the random tile
+	*/
 	Vec2 findHiddenTile();
 };
